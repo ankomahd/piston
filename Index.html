@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+	<link href="js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="custom.css" rel="stylesheet">
+	
+	<!--Libraries-->
+	<script src="js/libs/jquery-1.9.0.js"></script>
+	<script src="js/libs/handlebars-1.0.0-rc.4.js"></script>
+	<script src="js/libs/ember-1.0.0-rc.6.js"></script>
+	<script src="js/libs/ember-data-latest.min.js"></script>
+	<script src="js/bootstrap/js/bootstrap.min.js"></script>
+	
+	<script src="js/application.js"></script>
+	<script src="js/router.js"></script>
+	
+	<script src="js/models/store.js"></script>
+	<script src="js/models/message.js"></script>
+	<script src="js/models/project.js"></script>
+	<script src="js/controllers/project_controller.js"></script>
+	<script src="js/controllers/edit_controller.js"></script>
+	<script src="js/views/buttonView.js"></script>
+	
+ </head>
+ <body>
+	<script type="text/x-handlebars" data-template-name="application">
+	<div class="navbar navbar-static-top">
+		<div class="navbar-inner">
+			<h1>DirecTalk</h1>	
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">			
+			<div>
+				{{outlet}}
+			</div>
+		</div>
+	</div>
+	<footer>
+		&copy;2013
+	</footer>
+	</script>
+	<script type="text/x-handlebars" data-template-name="projects">
+	<div class="span2 fill">
+		<h2>Projects</h2>
+		<ul>
+			{{#each controller}}
+			<tr><td>					
+				{{#linkTo 'project' this}}<li><label>{{name}}</label></li>{{/linkTo}}
+			</td></tr>
+			{{/each}}
+		</ul>
+	</div>
+	{{outlet}}
+	</script>
+	<script type="text/x-handlebars" data-template-name="projects/index">
+		
+	</script>
+	<script type="text/x-handlebars" data-template-name="project/index">
+
+	</script>
+	
+	<script type="text/x-handlebars" data-template-name="project">
+	<div class="span4 fill shadow">
+		<h4>{{name}}<button style="float:right">{{#linkTo 'message.new' this}}new</button>{{/linkTo}}</h4>
+		<ul>
+			{{#each message in messages}}
+				{{#linkTo 'message.show' message}}<li><label>{{message.title}}</label></li>{{/linkTo}}
+			{{/each}}
+		</ul>
+	</div>
+	{{outlet}}							
+	</script>
+	<script type="text/x-handlebars" data-template-name="messages">
+	{{outlet}}	
+	</script>
+	<script type="text/x-handlebars" data-template-name="message/index">
+		 
+	</script>
+	<script type="text/x-handlebars" data-template-name="message/new">
+		<div class="span5 shadow fill">
+			<h4>Message Details</h4>
+			{{template 'message/form'}}		
+		</div>
+	</script>
+	
+	<script type="text/x-handlebars" data-template-name="message/form">
+		<form {{action save content on="submit"}}>
+			<label>Title</label><p>{{view Ember.TextField valueBinding='title'}}</p>	
+			<label>Message</label><p>{{view Ember.TextField valueBinding='message'}}</p>	
+			<label>Date</label><p>{{view Ember.TextField valueBinding='date'}}</p>	
+			<button type="submit">Save</button>
+			<button {{action cancel content}}> Cancel</button>
+		</form>
+	</script>
+	
+	<script type="text/x-handlebars" data-template-name="message/show">
+	<div class="span5 shadow fill">
+		<h2>Message Details {{#linkTo 'message.edit' this}}<small>Edit</small>{{/linkTo}}</br></h2>
+		{{#with content}}
+		    <h3>{{title}}</h3>
+			    {{message}} </br>		
+			    {{date}}
+		{{/with}}
+	</div>
+	</script>
+	<script type="text/x-handlebars" data-template-name="message/edit">	
+	<div class="span5 shadow fill">
+		<h2>Message Details</h2>
+		{{template 'message/form'}}
+	</div>
+	</script>
+	
+ </body>
+ </html>

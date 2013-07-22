@@ -1,0 +1,24 @@
+Songs.Router.map(function(){
+	this.resource('projects', {path: '/'});
+	this.resource('projects', {path: '/'}, function(){
+		this.resource('project', {path: '/projects/:project_id'}, function(){
+			//this.resource('songs', {path: '/'}, function(){
+				this.resource('song', {path: '/songs/:song_id'});
+			//});
+		});
+	});
+});
+
+Songs.SongsRoute = Ember.Route.extend({
+	model: function (){
+		return Songs.Song.find();
+}
+});
+
+Songs.ProjectsRoute = Ember.Route.extend({
+	model: function(){
+		return Songs.Project.find();
+	}
+});
+
+

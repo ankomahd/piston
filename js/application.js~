@@ -1,0 +1,8 @@
+window.Songs = Ember.Application.create({
+	mixmaster: 'Andy',
+	totalReviews: 0,
+	LOG_TRANSITIONS: true
+	/*ready: function(){
+		alert('Ember Sings helloooo!');
+	}*/
+});

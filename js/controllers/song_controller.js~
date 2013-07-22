@@ -1,0 +1,3 @@
+Songs.SongsController = Em.ArrayController.extend({});
+
+Songs.SongsIndexController = Em.ArrayController.extend({});
