@@ -1,7 +1,7 @@
 DirecTalk.Router.map(function(){
 	this.resource('projects', {path: '/'}, function(){
 		this.resource('project', {path: '/projects/:project_id'}, function(){
-				this.resource('message', {path: '/messages'}, function(){
+				this.resource('message', {path: '/message'}, function(){
 					this.route('show', {path: '/:message_id'});
 					this.route('edit', {path: '/:message_id/edit'});
 					this.route('new');
@@ -12,8 +12,8 @@ DirecTalk.Router.map(function(){
 
 DirecTalk.MessagesRoute = Ember.Route.extend({
 	model: function (){
-		return DirecTalk.Message.find();
-}
+		 return DirecTalk.Message.find();
+	}
 });
 
 DirecTalk.ProjectsRoute = Ember.Route.extend({
@@ -22,13 +22,23 @@ DirecTalk.ProjectsRoute = Ember.Route.extend({
 	}
 });
 
+DirecTalk.ProjectIndexRoute = Ember.Route.extend({
+	model: function(){
+		return DirecTalk.Project.find();
+	}
+});
+
 DirecTalk.MessageNewRoute = Ember.Route.extend({
+	model: function(){
+		return DirecTalk.Message.find();
+	}
+});
+/*DirecTalk.MessageNewRoute = Ember.Route.extend({
 	model: function(){
 		return DirecTalk.Message.createRecord();
 	},
 	exit: function(){
-		this._super();
-		
+		this._super();	
 		this.get('currentModel.transaction').rollback();
 	},
 	
@@ -40,11 +50,11 @@ DirecTalk.MessageNewRoute = Ember.Route.extend({
 			message.get('transaction').commit();
 		},
 		cancel: function(message) {
-    		this.transitionTo("message.show", message);
+    		this.transitionTo("message.index");
     	}
 	}
 	
-});
+});*/
 
 DirecTalk.MessageEditRoute = Ember.Route.extend({
 	model: function(){
