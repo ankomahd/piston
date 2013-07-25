@@ -33,28 +33,6 @@ DirecTalk.MessageNewRoute = Ember.Route.extend({
 		return DirecTalk.Message.find();
 	}
 });
-/*DirecTalk.MessageNewRoute = Ember.Route.extend({
-	model: function(){
-		return DirecTalk.Message.createRecord();
-	},
-	exit: function(){
-		this._super();	
-		this.get('currentModel.transaction').rollback();
-	},
-	
-	events: {
-		save: function(message){
-			message.one('didUpdate', this, function(){
-				this.transitionTo("message.show", message);
-			});
-			message.get('transaction').commit();
-		},
-		cancel: function(message) {
-    		this.transitionTo("message.index");
-    	}
-	}
-	
-});*/
 
 DirecTalk.MessageEditRoute = Ember.Route.extend({
 	model: function(){

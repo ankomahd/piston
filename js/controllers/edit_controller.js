@@ -4,7 +4,9 @@ DirecTalk.ProjectsEditController = Ember.ObjectController.extend({
 
 DirecTalk.MessageNewController = Ember.ObjectController.extend({
 	needs: ['project'],
+	content: null, 
 	
+	//save message
 	save: function(){
 		store = this.get("store");
 		transaction = store.transaction();
@@ -16,18 +18,22 @@ DirecTalk.MessageNewController = Ember.ObjectController.extend({
 		
 		message.one('didCreate', this,function(){});
 		transaction.commit();
+		this.set('message', "").set('title', "").set('date', "");
 		this.get('target').transitionTo('message.index');
-		/*
-		var project = this.get(('controllers.project.content'));
-		var message = DirecTalk.Message.createRecord({project: project, title: this.get('title'), message: this.get('message'), date: this.get('date')});
-		this.get('target').transitionTo('message.show');*/
 	},
+	
+	//cancel save
 	cancel: function(){
 		this.get('target').transitionTo('message.index');
+	},
+	
+	exit: function(){
+		
 	}
 	
+	
 });
-/*
-DirecTalk.MessageEditController = Ember.ObjectController.extend({
-	content: null
-});*/
+
+DirecTalk.MessageShowController = Ember.ObjectController.extend({
+	 
+});
